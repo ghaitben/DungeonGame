@@ -2,9 +2,11 @@
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include "graphics.h"
+#include "globals.h"
+
 
 Graphics::Graphics() {
-  SDL_CreateWindowAndRenderer(640, 480, 0, &_window, &_renderer);
+  SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0, &_window, &_renderer);
   SDL_SetWindowTitle(_window, "adventure_game");
 }
 

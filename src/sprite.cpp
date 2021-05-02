@@ -1,15 +1,16 @@
 #include "sprite.h"
+#include "globals.h"
 #include<string>
 #include<iostream>
 
 
 Sprite::Sprite() {};
 
-Sprite::Sprite(Graphics& graphics, const std::string& filepath, int SourceX, int SourceY, int width, int height,
+Sprite::Sprite(Graphics& graphics, const std::string& filepath, int sourceX, int sourceY, int width, int height,
    float posX, float posY) : _x(posX), _y(posY) {
 
-    _sourceRect.x = SourceX;              //these are the positions of my sprite in the sprite sheet png picture
-    _sourceRect.y = SourceY;               // and width and height are the width of the sprite in the sprite sheet
+    _sourceRect.x = sourceX;              //these are the positions of my sprite in the sprite sheet png picture
+    _sourceRect.y = sourceY;               // and width and height are the width of the sprite in the sprite sheet
     _sourceRect.w = width;
     _sourceRect.h = height;
 
@@ -23,7 +24,7 @@ Sprite::Sprite(Graphics& graphics, const std::string& filepath, int SourceX, int
 Sprite::~Sprite() {}
 
 void Sprite::draw(Graphics& graphics, int x, int y) {
-  SDL_Rect destinationRectangle = {x, y, _sourceRect.w, _sourceRect.h};
+  SDL_Rect destinationRectangle = {x, y, _sourceRect.w * globals::SPRITE_SCALE, _sourceRect.h * globals::SPRITE_SCALE};
   graphics.blitSurface(_spriteSheet, &_sourceRect, &destinationRectangle);
 
 }
