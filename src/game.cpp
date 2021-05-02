@@ -2,7 +2,7 @@
 #include "game.h"
 #include "graphics.h"
 #include "input.h"
-#include "sprite.h"
+#include "player.h"
 
 const int MAX_FPS = 50;
 const int MAX_FRAME_TIME = (5*1000)/MAX_FPS;
@@ -22,9 +22,7 @@ void Game::gameLoop() {
   Graphics graphics;
   Input input;
   SDL_Event event;
-  _player = AnimatedSprite(graphics, "../Media/sprites/MyChar.png", 0, 0, 16, 16, 0, 0, 100);
-  _player.setupAnimations();
-  _player.playAnimation("GoLeft");
+  _player = Player(graphics, 300, 200);
 
   int START_TIME = SDL_GetTicks();
 
@@ -42,9 +40,18 @@ void Game::gameLoop() {
       else if(event.type == SDL_QUIT) {
         return;
       }
-    }
-    if(input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
-      return;
+      if(input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
+        return;
+      }
+      else if(input.wasKeyPressed(SDL_SCANCODE_LEFT) == true) {
+        _player.goLeft();
+      }
+      else if(input.wasKeyPressed(SDL_SCANCODE_RIGHT) == true) {
+        _player.goRight();
+      }
+      else if(!input.wasKeyPressed(SDL_SCANCODE_LEFT) && !input.wasKeyPressed(SDL_SCANCODE_RIGHT)) {
+        _player.stop();
+      }
     }
 
     int CURRENT_TIME = SDL_GetTicks();
@@ -61,7 +68,7 @@ void Game::gameLoop() {
 void Game::draw(Graphics &graphics) {
 
   graphics.clear();
-  _player.draw(graphics, 300, 100);
+  _player.draw(graphics);
   graphics.render();
 }
 

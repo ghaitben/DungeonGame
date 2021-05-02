@@ -35,9 +35,9 @@ void AnimatedSprite::playAnimation(std::string animation, bool once) {
   _currentAnimationOnce = once;
   if(_currentAnimation != animation) {
     _currentAnimation = animation;
-  }
-  _frameIndex = 0;
-}
+    _frameIndex = 0;                  //the frames keep updating but when I change the direction from left to right (for example)
+  }                                   // it should go back the the animation 0 of the right mouvement animations that's where the
+}                                     //frame index == 0 comes in handy
 
 void AnimatedSprite::setVisible(bool visible) {
   _visible = visible;
@@ -52,8 +52,8 @@ void AnimatedSprite::stopAnimation() {
 
 void AnimatedSprite::update(float elapsedTime) {
   Sprite::update();
-  _timeElapsed += elapsedTime;
 
+  _timeElapsed += elapsedTime;
  if(_timeElapsed > _timeToUpdate) {
    _timeElapsed -= _timeToUpdate;
      _frameIndex = (_frameIndex + 1)%_animations[_currentAnimation].size();    // if we are on the last animation we would go to first
@@ -73,11 +73,4 @@ void AnimatedSprite::draw(Graphics& graphics, int x, int y) {
     graphics.blitSurface(_spriteSheet, &_sourceRect, &destRect);
 
   }
-}
-void AnimatedSprite::animationDone(std::string currentAnimation) {
-
-}
-
-void AnimatedSprite::setupAnimations() {
-  addAnimation(3, 0, 0, "GoLeft", 16, 16, Vec2(0,0));
 }
