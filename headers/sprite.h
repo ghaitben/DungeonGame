@@ -11,13 +11,13 @@
 class Sprite {
 public:
   Sprite();
-  Sprite(Graphics& graphics, const std::string& filepath, int SourceX, int SourceY, int width, int height, float posX, float posY);
+  Sprite(Graphics& graphics, const std::string& filepath, int sourceX, int sourceY, int width, int height, float posX, float posY);
 
   virtual ~Sprite();
   virtual void update();          //virtual because it is going to be overriden once we change sprites
   void draw(Graphics& graphics, int x, int y);
 
-private:
+protected:
   SDL_Rect _sourceRect;
   SDL_Texture* _spriteSheet;
 

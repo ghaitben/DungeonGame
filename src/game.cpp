@@ -22,10 +22,12 @@ void Game::gameLoop() {
   Graphics graphics;
   Input input;
   SDL_Event event;
+
   _player = Player(graphics, 300, 200);
+  _level = Level("map_1", Vec2(100,200),graphics);
+
 
   int START_TIME = SDL_GetTicks();
-
   //start of the gameloop
   while(true) {
 
@@ -67,11 +69,14 @@ void Game::gameLoop() {
 
 void Game::draw(Graphics &graphics) {
 
-  graphics.clear();
+  graphics.clear();                 //clear everything that's on screen
+  _level.draw(graphics);            //draw the map of the level
   _player.draw(graphics);
+  
   graphics.render();
 }
 
 void Game::update(float elapsedTime) {
   _player.update(elapsedTime);
+  _level.update(elapsedTime);
 }
