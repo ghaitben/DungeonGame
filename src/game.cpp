@@ -72,7 +72,7 @@ void Game::draw(Graphics &graphics) {
   graphics.clear();                 //clear everything that's on screen
   _level.draw(graphics);            //draw the map of the level
   _player.draw(graphics);
-  
+
   graphics.render();
 }
 

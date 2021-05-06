@@ -3,6 +3,8 @@
 
 namespace physics {
   const float VELOCITY = 0.15;
+  const float MAX_ACCELERATION = 0.8;
+  const float ACCELERATION = 0.02;
 }
 
 Player::Player() {}
@@ -49,6 +51,10 @@ void Player::stop(){
 
 void Player::update(float elapsedTime) {
   //x is the player position and we increment it with dx whether we move right or left
+  if(_dy <= physics::MAX_ACCELERATION) {
+    _dy += physics::ACCELERATION * elapsedTime;
+  }
   _x += _dx * elapsedTime;       //to adjust the speed with the frame rate
+  _y += _dy * elapsedTime;
   AnimatedSprite::update(elapsedTime);
 }
