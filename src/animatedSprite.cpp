@@ -56,7 +56,7 @@ void AnimatedSprite::update(float elapsedTime) {
   _timeElapsed += elapsedTime;
  if(_timeElapsed > _timeToUpdate) {
    _timeElapsed -= _timeToUpdate;
-     _frameIndex = (_frameIndex + 1)%_animations[_currentAnimation].size();    // if we are on the last animation we would go to first
+     _frameIndex = (_frameIndex + 1)%(_animations[_currentAnimation].size());    // if we are on the last animation we would go to first
   }
 }
 

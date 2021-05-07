@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "tile.h"
 #include "rectangle.h"
+#include "animatedtile.h"
 #include<string>
 #include<vector>
 
@@ -29,11 +30,14 @@ protected:
   std::vector<Tile> _tileList;
   std::vector<Tileset> _tilesets;
   std::vector<Rectangle> _collisionRects;
+  std::vector<AnimatedTile> _animatedTileList;
+  std::vector<AnimatedTileInfo> _animatedTileInfos;
   SDL_Texture* _backgroundTexture;
 
 
   // load a map
   void loadMap(std::string mapName, Graphics& graphics);
+  Vec2 getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileHeight);
 };
 
 struct Tileset {

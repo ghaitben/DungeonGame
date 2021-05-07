@@ -13,7 +13,7 @@ public:
   Tile(SDL_Texture* _tileset, Vec2 _size, Vec2 _tilesetPosition, Vec2 _mapPosition);
   void update(float elapsedTime);
   void draw(Graphics& graphics);
-private:
+protected:
   SDL_Texture* _tileset;
   Vec2 _size;
   Vec2 _tilesetPosition;
