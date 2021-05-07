@@ -12,6 +12,7 @@ public:
 
   void goLeft();        //moves my main character to the left by dx (protected variable)
   void goRight();
+  void jump();
   void stop();                              //stop the player mouvement
 
   void draw(Graphics& graphics);

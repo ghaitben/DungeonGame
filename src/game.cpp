@@ -51,6 +51,9 @@ void Game::gameLoop() {
       else if(input.wasKeyPressed(SDL_SCANCODE_RIGHT) == true) {
         _player.goRight();
       }
+      else if(input.wasKeyPressed(SDL_SCANCODE_UP) == true) {
+        _player.jump();
+      }
       else if(!input.wasKeyPressed(SDL_SCANCODE_LEFT) && !input.wasKeyPressed(SDL_SCANCODE_RIGHT)) {
         _player.stop();
       }

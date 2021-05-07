@@ -5,6 +5,7 @@ namespace physics {
   const float VELOCITY = 0.15;
   const float MAX_ACCELERATION = 0.8;
   const float ACCELERATION = 0.002;
+  const float JUMP_ACCELERATION = 0.7;
 }
 
 Player::Player() {}
@@ -21,6 +22,7 @@ Player::Player(Graphics& graphics, Vec2 spawnPoint):
 }
 
 void Player::setupAnimations() {
+  addAnimation(1, 0, 0, "LookUp", 16, 16, Vec2(0,0));
   addAnimation(1, 0, 0, "FaceLeft", 16, 16, Vec2(0,0));         //stay still facing left
   addAnimation(1, 0, 16, "FaceRight", 16, 16, Vec2(0,0));       //stay still facing right
   addAnimation(3, 0, 0, "GoLeft", 16, 16, Vec2(0,0));           //run left
@@ -51,6 +53,14 @@ void Player::goRight() {
 void Player::stop(){
   _dx = 0;
   playAnimation(_facing == Right ? "FaceRight" : "FaceLeft");
+}
+
+void Player::jump() {
+  if(_grounded) {
+    _dy = 0;
+    _dy -= physics::JUMP_ACCELERATION;
+    _grounded = false;
+  }
 }
 
 const float Player::getX() const {
