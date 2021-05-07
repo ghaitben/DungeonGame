@@ -7,8 +7,8 @@
   <image source="../Media/tilesets/NpcSym.png" width="320" height="240"/>
   <tile id="18">
    <animation>
-    <frame tileid="18" duration="10"/>
-    <frame tileid="19" duration="10"/>
+    <frame tileid="18" duration="150"/>
+    <frame tileid="19" duration="150"/>
    </animation>
   </tile>
   <tile id="26">
