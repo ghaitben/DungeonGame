@@ -7,6 +7,24 @@ namespace globals {
   const int SPRITE_SCALE = 2;
 }
 
+namespace sides {
+  enum Side {
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT,
+    NONE
+  };
+  inline Side getOppositeSide(Side side) {
+		return
+				side == TOP ? BOTTOM :
+				side == BOTTOM ? TOP :
+				side == LEFT ? RIGHT :
+				side == RIGHT ? LEFT :
+				NONE;
+	}
+}
+
 enum Direction {            // enum is a type that can only take a range of values here (UP , DOWN , LEFT , RIGHT)
   Left,
   Right,

@@ -4,6 +4,7 @@
 #include "tile.h"
 #include<sstream>
 #include<cmath>
+#include<iostream>
 #include<algorithm>
 
 
@@ -147,6 +148,48 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
       xlayer = xlayer->NextSiblingElement("layer");
     }
   }
+
+  //get the collision rectangles
+  XMLElement* xObjectGroup = mapNode->FirstChildElement("objectgroup");
+  for(XMLElement* gobject = xObjectGroup; gobject != NULL; gobject = gobject->NextSiblingElement("objectgroup")) {
+
+    const char* name = gobject->Attribute("name");
+    std::stringstream c_name;
+    c_name << name;
+
+    if(c_name.str() == "collisions") {
+
+      XMLElement* xobject = gobject->FirstChildElement("object");
+      for(XMLElement* object = xobject; object != NULL; object = object->NextSiblingElement("object")) {
+
+        float x = object->FloatAttribute("x");
+        float y = object->FloatAttribute("y");
+        float width = object->FloatAttribute("width");
+        float height = object->FloatAttribute("height");
+        _collisionRects.emplace_back(Rectangle(
+          std::ceil(x) * globals::SPRITE_SCALE,
+          std::ceil(y) * globals::SPRITE_SCALE,
+          std::ceil(width) * globals::SPRITE_SCALE,
+          std::ceil(height) * globals::SPRITE_SCALE
+        ));
+      }
+    }
+    else if(c_name.str() == "spawn points") {
+
+
+      XMLElement* xobject = gobject->FirstChildElement("object");
+      for(XMLElement* object = xobject; object != NULL; object = object->NextSiblingElement("object")) {
+        float x = object->FloatAttribute("x");
+        float y = object->FloatAttribute("y");
+        const char*  name = object->Attribute("name");
+        std::stringstream s_name;
+        s_name << name;
+        if(s_name.str() == "player") {
+          _spawnPoint = Vec2(std::ceil(x) * globals::SPRITE_SCALE, std::ceil(y) * globals::SPRITE_SCALE);
+        }
+      }
+    }
+  }
 }
 
 void Level::draw(Graphics& graphics) {
@@ -155,5 +198,20 @@ void Level::draw(Graphics& graphics) {
   }
 }
 
+std::vector<Rectangle> Level::checkTileCollisions(const Rectangle& other) {
+
+  std::vector<Rectangle> others;
+  for(unsigned long int i = 0; i < _collisionRects.size(); ++i) {
+    if(_collisionRects.at(i).collidesWith(other)) {
+      others.emplace_back(_collisionRects.at(i));
+    }
+  }
+  return others;
+}
 
 void Level::update(float elapsedTime) {}
+
+
+const Vec2 Level::getPlayerSpawnPoint() const {
+  return _spawnPoint;
+}

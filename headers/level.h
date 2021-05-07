@@ -2,6 +2,7 @@
 #define LEVEL_H
 #include "globals.h"
 #include "tile.h"
+#include "rectangle.h"
 #include<string>
 #include<vector>
 
@@ -17,6 +18,9 @@ public:
 
   void update(float elapsedTime);
   void draw(Graphics& graphics);
+  std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
+  const Vec2 getPlayerSpawnPoint() const;
+
 protected:
   std::string _mapName;
   Vec2 _spawnPoint;
@@ -24,7 +28,7 @@ protected:
   Vec2 _tileSize;
   std::vector<Tile> _tileList;
   std::vector<Tileset> _tilesets;
-
+  std::vector<Rectangle> _collisionRects;
   SDL_Texture* _backgroundTexture;
 
 

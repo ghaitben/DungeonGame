@@ -23,8 +23,8 @@ void Game::gameLoop() {
   Input input;
   SDL_Event event;
 
-  _player = Player(graphics, 300, 200);
-  _level = Level("map_1", Vec2(100,200),graphics);
+  _level = Level("map_1", Vec2(100,100),graphics);
+  _player = Player(graphics, _level.getPlayerSpawnPoint());
 
 
   int START_TIME = SDL_GetTicks();
@@ -79,4 +79,9 @@ void Game::draw(Graphics &graphics) {
 void Game::update(float elapsedTime) {
   _player.update(elapsedTime);
   _level.update(elapsedTime);
+  //check for collisions and then act accordingly
+  std::vector<Rectangle> others;
+  if((others = _level.checkTileCollisions(_player.getBoundingBox())).size() > 0) {
+    _player.handleTileCollisions(others);
+  }
 }
