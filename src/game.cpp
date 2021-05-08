@@ -49,7 +49,6 @@ void Game::gameLoop() {
         _player.goLeft();
       }
       else if(input.wasKeyHeld(SDL_SCANCODE_RIGHT) == true) {
-        std::cout << "right" << std::endl;
         _player.goRight();
       }
       if(input.wasKeyPressed(SDL_SCANCODE_UP)) {
