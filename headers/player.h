@@ -12,6 +12,10 @@ public:
 
   void goLeft();        //moves my main character to the left by dx (protected variable)
   void goRight();
+  void lookUp();
+  void stopLookingUp();
+  void lookDown();
+  void stopLookingDown();
   void jump();
   void stop();                              //stop the player mouvement
 
@@ -30,7 +34,8 @@ protected:
   float _dx, _dy;
   Direction _facing;
   bool _grounded;
-
+  bool _lookingUp = false;
+  bool _lookingDown = false;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "player.h"
 #include "graphics.h"
+#include<iostream>
 
 namespace physics {
   const float VELOCITY = 0.15;
@@ -22,11 +23,18 @@ Player::Player(Graphics& graphics, Vec2 spawnPoint):
 }
 
 void Player::setupAnimations() {
-  addAnimation(1, 0, 0, "LookUp", 16, 16, Vec2(0,0));
+  addAnimation(1, 3, 0, "LookUpLeft", 16, 16, Vec2(0,0));
+  addAnimation(1, 3, 16, "LookUpRight", 16, 16, Vec2(0,0));
   addAnimation(1, 0, 0, "FaceLeft", 16, 16, Vec2(0,0));         //stay still facing left
   addAnimation(1, 0, 16, "FaceRight", 16, 16, Vec2(0,0));       //stay still facing right
   addAnimation(3, 0, 0, "GoLeft", 16, 16, Vec2(0,0));           //run left
   addAnimation(3, 0, 16, "GoRight", 16, 16, Vec2(0,0));          //run right
+  addAnimation(3, 3, 0, "GoLeftUp", 16, 16, Vec2(0,0));
+  addAnimation(3, 3, 16, "GoRightUp", 16, 16, Vec2(0,0));
+  addAnimation(1, 6, 0, "LookDownLeft", 16, 16, Vec2(0,0));
+  addAnimation(1, 6, 16, "LookDownRight", 16, 16, Vec2(0,0));
+  addAnimation(1, 7, 0, "LookBackwardsLeft", 16, 16, Vec2(0,0));
+  addAnimation(1, 7, 16, "LookBackwardsRight", 16, 16, Vec2(0,0));
 }
 
 void Player::animationDone(std::string currentAnimation) {}
@@ -37,26 +45,62 @@ void Player::draw(Graphics& graphics) {
 }
 
 void Player::goLeft() {
-
+  if(_lookingDown && _grounded) {
+    return;
+  }
   _dx = -physics::VELOCITY;
-  playAnimation("GoLeft");
+  playAnimation(_lookingUp == true ? "GoLeftUp" : "GoLeft");
   _facing = Left;
 }
 
 void Player::goRight() {
-
+  if(_lookingDown && _grounded) {
+    return;
+  }
   _dx = physics::VELOCITY;
-  playAnimation("GoRight");         // play the animation once to just change direction
+  playAnimation(_lookingUp == true ? "GoRightUp" : "GoRight");         // play the animation once to just change direction
   _facing = Right;
 }
 
 void Player::stop(){
   _dx = 0;
-  playAnimation(_facing == Right ? "FaceRight" : "FaceLeft");
+  if(_lookingUp) {
+    playAnimation(_facing == Right ? "LookUpRight" : "LookUpLeft");
+  }
+  else if(!_lookingUp && !_lookingDown) {
+    playAnimation(_facing == Right ? "FaceRight" : "FaceLeft");
+  }
+
+
+}
+
+void Player::lookUp() {
+  _lookingUp = true;
+  if(_dx == 0) {
+    playAnimation(_facing == Right ? "LookUpRight" : "LookUpLeft");
+  }
+}
+
+void Player::stopLookingUp() {
+  _lookingUp = false;
+}
+
+void Player::lookDown() {
+  _lookingDown = true;
+  if(_grounded) {       //need to interact
+    playAnimation(_facing == Right ? "LookBackwardsRight" : "LookBackwardsLeft");
+  }
+  else {
+    playAnimation(_facing == Right ? "LookDownRight" : "LookDownLeft");
+  }
+}
+
+void Player::stopLookingDown() {
+  _lookingDown = false;
 }
 
 void Player::jump() {
-  if(_grounded) {
+  if(_grounded && !_lookingDown) {
     _dy = 0;
     _dy -= physics::JUMP_ACCELERATION;
     _grounded = false;

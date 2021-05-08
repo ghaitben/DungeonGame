@@ -3,7 +3,7 @@
 #include "graphics.h"
 #include "input.h"
 #include "player.h"
-
+#include<iostream>
 const int MAX_FPS = 50;
 const int MAX_FRAME_TIME = (5*1000)/MAX_FPS;
 
@@ -45,16 +45,30 @@ void Game::gameLoop() {
       if(input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
         return;
       }
-      else if(input.wasKeyPressed(SDL_SCANCODE_LEFT) == true) {
+      else if(input.wasKeyHeld(SDL_SCANCODE_LEFT) == true) {
         _player.goLeft();
       }
-      else if(input.wasKeyPressed(SDL_SCANCODE_RIGHT) == true) {
+      else if(input.wasKeyHeld(SDL_SCANCODE_RIGHT) == true) {
         _player.goRight();
       }
-      else if(input.wasKeyPressed(SDL_SCANCODE_UP) == true) {
+      if(input.wasKeyPressed(SDL_SCANCODE_UP)) {
+        _player.lookUp();
+      }
+      else if(input.wasKeyPressed(SDL_SCANCODE_DOWN)) {
+        _player.lookDown();
+      }
+
+      if(input.wasKeyReleased(SDL_SCANCODE_UP)) {
+        _player.stopLookingUp();
+      }
+      if(input.wasKeyReleased(SDL_SCANCODE_DOWN)) {
+        _player.stopLookingDown();
+      }
+      if(input.wasKeyPressed(SDL_SCANCODE_W)) {
         _player.jump();
       }
-      else if(!input.wasKeyPressed(SDL_SCANCODE_LEFT) && !input.wasKeyPressed(SDL_SCANCODE_RIGHT)) {
+
+      if(!input.wasKeyPressed(SDL_SCANCODE_LEFT) && !input.wasKeyPressed(SDL_SCANCODE_RIGHT)) {
         _player.stop();
       }
     }
