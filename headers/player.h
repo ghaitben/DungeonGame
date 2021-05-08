@@ -30,12 +30,18 @@ public:
 
   void handleTileCollisions(std::vector<Rectangle>& others);
 
+  const inline int getMaxHealth() const { return _maxHealth; }
+  const inline int getCurrentHealth() const { return _currentHealth; }
+
 protected:
   float _dx, _dy;
   Direction _facing;
   bool _grounded;
   bool _lookingUp = false;
   bool _lookingDown = false;
+
+  int _maxHealth;
+  int _currentHealth;
 };
 
 #endif

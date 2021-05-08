@@ -62,3 +62,11 @@ const sides::Side Sprite::getCollisionSide(Rectangle& other) const {
 			sides::NONE;
 
 }
+
+void Sprite::setSourceRectX(int value) {
+  _sourceRect.x = value;
+}
+
+void Sprite::setSourceRectY(int value) {
+  _sourceRect.y = value;
+}

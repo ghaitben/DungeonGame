@@ -25,7 +25,7 @@ void Game::gameLoop() {
 
   _level = Level("map_1", Vec2(100,100),graphics);
   _player = Player(graphics, _level.getPlayerSpawnPoint());
-
+  _hud = HUD(graphics, _player);
 
   int START_TIME = SDL_GetTicks();
   //start of the gameloop
@@ -45,10 +45,11 @@ void Game::gameLoop() {
       if(input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
         return;
       }
-      else if(input.wasKeyHeld(SDL_SCANCODE_LEFT) == true) {
+      else if(input.wasKeyPressed(SDL_SCANCODE_LEFT) == true) {
         _player.goLeft();
       }
       else if(input.wasKeyHeld(SDL_SCANCODE_RIGHT) == true) {
+        std::cout << "right" << std::endl;
         _player.goRight();
       }
       if(input.wasKeyPressed(SDL_SCANCODE_UP)) {
@@ -89,13 +90,14 @@ void Game::draw(Graphics &graphics) {
   graphics.clear();                 //clear everything that's on screen
   _level.draw(graphics);            //draw the map of the level
   _player.draw(graphics);
-
+  _hud.draw(graphics);
   graphics.render();
 }
 
 void Game::update(float elapsedTime) {
   _player.update(elapsedTime);
   _level.update(elapsedTime);
+  _hud.update(elapsedTime);
   //check for collisions and then act accordingly
   std::vector<Rectangle> others;
   if((others = _level.checkTileCollisions(_player.getBoundingBox())).size() > 0) {

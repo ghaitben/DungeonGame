@@ -15,7 +15,9 @@ Player::Player(Graphics& graphics, Vec2 spawnPoint):
   AnimatedSprite(graphics, "../Media/sprites/MyChar.png", 0, 0, 16, 16, spawnPoint.x, spawnPoint.y, 100),
   _dx(0),
   _dy(0),
-  _grounded(false)
+  _grounded(false),
+  _maxHealth(3),
+  _currentHealth(3)
 {
   graphics.loadImage("../Media/sprites/MyChar.png");
   setupAnimations();
@@ -76,11 +78,15 @@ void Player::stop(){
 
 void Player::lookUp() {
   _lookingUp = true;
+
   if(_dx == 0) {
     playAnimation(_facing == Right ? "LookUpRight" : "LookUpLeft");
   }
+  else {
+    playAnimation(_facing == Right ? "GoRightUp" : "GoLeftUp");
+  }
 }
-
+//problem when I'm holding a key say Right and I press the jump for example the key I had pressed is not working anymore
 void Player::stopLookingUp() {
   _lookingUp = false;
 }
