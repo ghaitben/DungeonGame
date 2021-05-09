@@ -25,7 +25,7 @@ void Game::gameLoop() {
 
   _level = Level("map_1",graphics);
   _player = Player(graphics, _level.getPlayerSpawnPoint());
-  _hud = HUD(graphics, _player);
+  _hud = Interface(graphics, _player);
 
   int START_TIME = SDL_GetTicks();
   //start of the gameloop
@@ -97,7 +97,7 @@ void Game::draw(Graphics &graphics) {
 void Game::update(float elapsedTime) {
   _player.update(elapsedTime);
   _level.update(elapsedTime,_player);
-  _hud.update(elapsedTime);
+  _hud.update(elapsedTime,_player);
   //check for collisions and then act accordingly
   std::vector<Rectangle> others;
   if((others = _level.checkTileCollisions(_player.getBoundingBox())).size() > 0) {
@@ -112,5 +112,10 @@ void Game::update(float elapsedTime) {
   if((otherPerks = _level.checkPerkCollision(_player.getBoundingBox())).size() > 0) {
     _player.handlePerkCollision(otherPerks, _level, _graphics,elapsedTime);
 
+  }
+
+  std::vector<Enemy*> otherE;
+  if((otherE = _level.checkEnemyCollision(_player.getBoundingBox())).size() > 0) {
+    _player.handleEnemyCollision(otherE);
   }
  }

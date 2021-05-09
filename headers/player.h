@@ -4,6 +4,7 @@
 #include "animatedSprite.h"
 #include "level.h"
 #include "graphics.h"
+#include "enemy.h"
 
 class Player : public AnimatedSprite {
 public:
@@ -30,8 +31,11 @@ public:
   void handleTileCollisions(std::vector<Rectangle>& others);
   void handleDoorCollision(std::vector<Door>& others, Level& level, Graphics& graphics);
   void handlePerkCollision(std::vector<Perk>& others, Level& level, Graphics& graphics, float elapsedTime);
+  void handleEnemyCollision(std::vector<Enemy*>& others);
+
   const inline int getMaxHealth() const { return _maxHealth; }
   const inline int getCurrentHealth() const { return _currentHealth; }
+  void gainHealth(int amount);
 
 private:
   float _dx, _dy;

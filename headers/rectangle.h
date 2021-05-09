@@ -34,7 +34,7 @@ public:
 				sides::NONE;
 	}
 
-  const bool collidesWith(const Rectangle& other) {
+  const bool collidesWith(const Rectangle& other) const {
 		return
 				getRight() >= other.getLeft() &&
 				getLeft() <= other.getRight() &&

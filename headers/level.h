@@ -27,6 +27,7 @@ public:
   std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
   std::vector<Door> checkDoorCollision(const Rectangle& other);
   std::vector<Perk> checkPerkCollision(const Rectangle& other);
+  std::vector<Enemy*> checkEnemyCollision(const Rectangle& other); 
   const Vec2 getPlayerSpawnPoint() const;
 
 

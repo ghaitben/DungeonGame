@@ -26,14 +26,25 @@ void Enemy::draw(Graphics& graphics) {
 
 Bat::Bat() {}
 
-Bat::Bat(Graphics& graphics, Vec2 spawnPoint) : Enemy(graphics, "../Media/sprites/NpcCemet.png", 32, 32, 16, 16, spawnPoint, 100) {
+Bat::Bat(Graphics& graphics, Vec2 spawnPoint) : Enemy(graphics, "../Media/sprites/NpcCemet.png", 32, 32, 16, 16, spawnPoint, 100),
+          _startingX(spawnPoint.x),
+          _startingY(spawnPoint.y),
+          _shouldMoveUp(false)
+{
   setupAnimations();
   playAnimation("FlyLeft");
 }
 
 void Bat::update(float elapsedTime, Player& player) {
+
   _direction = player.getX() > _x ? Right : Left;
   playAnimation(_direction == Right ? "FlyRight" : "FlyLeft");
+
+  _y += _shouldMoveUp ? -0.02 : 0.02;
+  if(_y > _startingY + 20 || _y < _startingY - 20) {
+    _shouldMoveUp = !_shouldMoveUp;
+  }
+
   Enemy::update(elapsedTime,player);
 }
 
@@ -46,4 +57,8 @@ void Bat::animationDone(std::string currentAnimation) {}
 void Bat::setupAnimations() {
   addAnimation(3, 2, 32, "FlyLeft", 16, 16, Vec2(0,0));
   addAnimation(3, 2, 48, "FlyRight", 16, 16, Vec2(0,0));
+}
+
+void Bat::touchPlayer(Player* player) {
+  player->gainHealth(-1);
 }

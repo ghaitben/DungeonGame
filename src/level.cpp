@@ -351,6 +351,15 @@ std::vector<Perk> Level::checkPerkCollision(const Rectangle& other) {
   return others;
 }
 
+std::vector<Enemy*> Level::checkEnemyCollision(const Rectangle& other) {
+  std::vector<Enemy*> others;
+  for(unsigned long int i = 0; i < _enemies.size(); ++i) {
+    if(_enemies.at(i)->getBoundingBox().collidesWith(other)) {
+      others.emplace_back(_enemies.at(i));
+    }
+  }
+  return others;
+}
 
 const Vec2 Level::getPlayerSpawnPoint() const {
   return _spawnPoint;

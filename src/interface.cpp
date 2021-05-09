@@ -1,16 +1,12 @@
-#include "hud.h"
+#include "interface.h"
 #include "graphics.h"
+#include<iostream>
 
-Sprite _currentHealthBar; //I've put it here to prevent that weird bug (check hud.h)
-Sprite _lvlWord;
-Sprite _lvlNumber;
-Sprite _expBar;
-Sprite _slash;
-Sprite _dashes;
 
-HUD::HUD() {}
 
-HUD::HUD(Graphics& graphics, Player& player) {
+Interface::Interface() {}
+
+Interface::Interface(Graphics& graphics, Player& player) {
   _player = player;                                                                           //where to put it on the screen (35,70)
   _healthBarSprite = Sprite(graphics, "../Media/sprites/TextBox.png", 0, 40, 64, 8, 35, 60);  //x,y(in the sprite sheet),width,height
   _healthNumber1 = Sprite(graphics, "../Media/sprites/TextBox.png",0 , 56, 8, 8, 66, 60);
@@ -23,16 +19,16 @@ HUD::HUD(Graphics& graphics, Player& player) {
 }
 
 
-void HUD::update(float elapsedTime) {
+void Interface::update(float elapsedTime, Player& player) {
+  
+  _player = player;
   _healthNumber1.setSourceRectX(8 * _player.getCurrentHealth());
-
   float num = (float) _player.getCurrentHealth() / _player.getMaxHealth();
   _currentHealthBar.setSourceRectW(num * 39);
-
 }
 
 
-void HUD::draw(Graphics& graphics) {
+void Interface::draw(Graphics& graphics) {
   _healthBarSprite.draw(graphics, _healthBarSprite.getX(), _healthBarSprite.getY());
   _healthNumber1.draw(graphics, _healthNumber1.getX(), _healthNumber1.getY());
   _currentHealthBar.draw(graphics, _currentHealthBar.getX(), _currentHealthBar.getY());

@@ -3,7 +3,7 @@
 
 #include "level.h"
 #include "player.h"
-#include "hud.h"
+#include "interface.h"
 #include "graphics.h"
 
 
@@ -17,7 +17,7 @@ private:
   void update(float elapsedTime);
   Player _player;
   Level _level;
-  HUD _hud;
+  Interface _hud;
   Graphics _graphics;
 };
 

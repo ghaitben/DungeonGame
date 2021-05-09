@@ -200,5 +200,21 @@ void Player::handlePerkCollision(std::vector<Perk>& others, Level& level, Graphi
         }
       }
     }
+    if(_maxHealth < 9) {
+      _maxHealth++;
+      _currentHealth++;
+    }
   }
+}
+
+void Player::handleEnemyCollision(std::vector<Enemy*>& others) {
+
+  for(unsigned long int i = 0; i < others.size(); ++i) {
+    others.at(i)->touchPlayer(this);
+  }
+
+}
+
+void Player::gainHealth(int amount) {
+  _currentHealth += amount;
 }
