@@ -23,7 +23,7 @@ void Game::gameLoop() {
   Input input;
   SDL_Event event;
 
-  _level = Level("map_1", Vec2(100,100),graphics);
+  _level = Level("map_1",graphics);
   _player = Player(graphics, _level.getPlayerSpawnPoint());
   _hud = HUD(graphics, _player);
 
@@ -75,6 +75,7 @@ void Game::gameLoop() {
 
     int CURRENT_TIME = SDL_GetTicks();
     int ElapsedTime = CURRENT_TIME - START_TIME;
+    _graphics = graphics;
     update(std::min(MAX_FRAME_TIME,ElapsedTime));         //Limiting the FPS the elapsed time should be less than the max_time_frame
     START_TIME = CURRENT_TIME;                              // other wise the frame will update at max_frame_time
 
@@ -102,4 +103,8 @@ void Game::update(float elapsedTime) {
   if((others = _level.checkTileCollisions(_player.getBoundingBox())).size() > 0) {
     _player.handleTileCollisions(others);
   }
-}
+  std::vector<Door> otherD;
+  if((otherD = _level.checkDoorCollision(_player.getBoundingBox())).size() > 0) {
+    _player.handleDoorCollision(otherD, _level, _graphics);
+  }
+ }

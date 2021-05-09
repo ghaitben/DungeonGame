@@ -164,3 +164,16 @@ void Player::handleTileCollisions(std::vector<Rectangle> &others) {
 		}
 	}
 }
+
+void Player::handleDoorCollision(std::vector<Door>& others, Level& level, Graphics& graphics) {
+  //check if player is grounded and looking down
+  //although we're going to collide with only one door, maybe in some future levels we'll have many doors to collide with
+  for(unsigned long int i = 0; i < others.size(); ++i) {
+    if(_grounded && _lookingDown) {
+      level = Level(others.at(i).getDestination(), graphics);
+      _x = level.getPlayerSpawnPoint().x;
+      _y = level.getPlayerSpawnPoint().y;
+
+    }
+  }
+}

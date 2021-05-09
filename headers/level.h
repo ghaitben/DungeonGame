@@ -4,6 +4,7 @@
 #include "tile.h"
 #include "rectangle.h"
 #include "animatedtile.h"
+#include "door.h"
 #include<string>
 #include<vector>
 
@@ -13,13 +14,14 @@ struct Tileset;
 
 class Level {
 public:
-  Level(std::string mapName, Vec2 spawnPoint, Graphics& graphics);
+  Level(std::string mapName, Graphics& graphics);
   Level();
   ~Level();
 
   void update(float elapsedTime);
   void draw(Graphics& graphics);
   std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
+  std::vector<Door> checkDoorCollision(const Rectangle& other);
   const Vec2 getPlayerSpawnPoint() const;
 
 protected:
@@ -32,7 +34,9 @@ protected:
   std::vector<Rectangle> _collisionRects;
   std::vector<AnimatedTile> _animatedTileList;
   std::vector<AnimatedTileInfo> _animatedTileInfos;
+  std::vector<Door> _doorList;
   SDL_Texture* _backgroundTexture;
+
 
 
   // load a map

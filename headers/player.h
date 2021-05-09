@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include "globals.h"
 #include "animatedSprite.h"
+#include "level.h"
 
 class Graphics;
 
@@ -29,6 +30,7 @@ public:
   const float getY() const;
 
   void handleTileCollisions(std::vector<Rectangle>& others);
+  void handleDoorCollision(std::vector<Door>& others, Level& level, Graphics& graphics);
 
   const inline int getMaxHealth() const { return _maxHealth; }
   const inline int getCurrentHealth() const { return _currentHealth; }

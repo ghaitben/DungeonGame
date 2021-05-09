@@ -23,6 +23,8 @@ public:
   const int getWidth() const { return _width; }
   const int getHeight() const { return _height; }
 
+  const inline Rectangle getRect() const { return *this; }
+
   const int getSide(const sides::Side side) {
 		return
 				side == sides::LEFT ? getLeft() :

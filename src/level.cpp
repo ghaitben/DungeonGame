@@ -12,9 +12,8 @@ using namespace tinyxml2;
 
 Level::Level() {};
 
-Level::Level(std::string mapName, Vec2 spawnPoint, Graphics& graphics) :
+Level::Level(std::string mapName, Graphics& graphics) :
       _mapName(mapName),
-      _spawnPoint(spawnPoint),
       _size(Vec2(0,0))
 {
   loadMap(mapName, graphics);
@@ -222,6 +221,44 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
         }
       }
     }
+    //handling the door element /property
+    else if(c_name.str() == "doors") {
+
+      //loop through all objects in the object group doors
+      XMLElement* xobject = gobject->FirstChildElement("object");
+      for(XMLElement* object = xobject; object != NULL; object = object->NextSiblingElement("object")) {
+
+        float x = object->FloatAttribute("x");
+        float y = object->FloatAttribute("y");
+        float w = object->FloatAttribute("width");
+        float h = object->FloatAttribute("height");
+        Rectangle rect = Rectangle(x, y, w, h);
+
+        XMLElement* xproperties = object->FirstChildElement("properties");
+        //loop through all the proerties section
+        for(XMLElement* properties = xproperties; properties != NULL; properties = properties->NextSiblingElement("properties")) {
+          XMLElement* xproperty = properties->FirstChildElement("property");
+
+          //loop through all the properties inside the properties section
+          for(XMLElement* property = xproperty; property != NULL; property = property->NextSiblingElement("property")) {
+
+            const char* name = property->Attribute("name");
+            std::stringstream ss_name;
+            ss_name << name;
+            if(ss_name.str() == "destination") {
+              const char* name2 = property->Attribute("value");
+              std::stringstream ss_name2;
+              ss_name2 << name2;
+              Door door = Door(rect, ss_name2.str());
+              _doorList.emplace_back(door);
+            }
+          }
+        }
+      }
+    }
+
+    //handling the collision with life perks
+    
   }
 }
 
@@ -244,6 +281,18 @@ std::vector<Rectangle> Level::checkTileCollisions(const Rectangle& other) {
   }
   return others;
 }
+
+std::vector<Door> Level::checkDoorCollision(const Rectangle& other) {
+
+  std::vector<Door> others;
+  for(unsigned long int i = 0; i < _doorList.size(); ++i) {
+    if(_doorList.at(i).collidesWith(other)) {
+      others.emplace_back(_doorList.at(i));
+    }
+  }
+  return others;
+}
+
 
 void Level::update(float elapsedTime) {
   for(unsigned long int i = 0; i < _animatedTileList.size(); ++i) {
