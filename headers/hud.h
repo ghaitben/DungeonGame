@@ -1,6 +1,5 @@
 #ifndef HUD_H
 #define HUD_H
-
 #include "sprite.h"
 #include "player.h"
 

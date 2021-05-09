@@ -177,3 +177,28 @@ void Player::handleDoorCollision(std::vector<Door>& others, Level& level, Graphi
     }
   }
 }
+
+void Player::handlePerkCollision(std::vector<Perk>& others, Level& level, Graphics& graphics, float elapsedTime) {
+  if(_grounded && _lookingDown) {
+    for(unsigned long int i = 0; i < others.size(); ++i) {
+      for(unsigned long int j = 0; j < level._animatedTileList.size(); ++j) {
+        if(level._animatedTileList.at(j)._duration == others.at(i)._xDuration) {
+          //check if it's life or save or anything
+          //delete the animated tile from the animated tile list
+          int duration = level._animatedTileList.at(j)._duration;
+
+          level._animatedTileList.erase(std::remove_if(level._animatedTileList.begin(), level._animatedTileList.end(),
+          [&duration](const AnimatedTile& ele)->bool
+                {
+                    return ele._duration == duration;
+          }), level._animatedTileList.end());
+
+          //delete the perk tile from the perklist
+          level._perkList.erase(std::remove_if(level._perkList.begin(), level._perkList.end(), [&duration](const Perk& ele) -> bool {
+            return ele._xDuration == duration;
+          }), level._perkList.end());
+        }
+      }
+    }
+  }
+}

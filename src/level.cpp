@@ -2,6 +2,7 @@
 #include "graphics.h"
 #include "tinyxml2.h"
 #include "tile.h"
+#include "enemy.h"
 #include<sstream>
 #include<cmath>
 #include<iostream>
@@ -165,6 +166,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
                 }
                 AnimatedTile tile(tilesetPositions, ati.Duration, tls.Texture, Vec2(tileWidth, tileHeight), finalTilePosition);
                 _animatedTileList.emplace_back(tile);
+
               }
               else {
                 Tile tile(tls.Texture, Vec2(tileWidth, tileHeight), finalTilesetPosition, finalTilePosition);
@@ -258,7 +260,40 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
     }
 
     //handling the collision with life perks
-    
+    else if(c_name.str() == "perks") {
+
+      XMLElement* xobject = gobject->FirstChildElement("object");
+      for(XMLElement* object = xobject; object != NULL; object = object->NextSiblingElement("object")) {
+
+        float x = object->FloatAttribute("x");
+        float y = object->FloatAttribute("y");
+        float width = object->FloatAttribute("width");
+        float height = object->FloatAttribute("height");
+        float xDuration = object->FloatAttribute("duration");
+        Rectangle rect = Rectangle(x, y, width, height);
+
+        _perkList.emplace_back(rect,xDuration);
+      }
+    }
+
+    else if(c_name.str() == "enemies") {
+      float x,y;
+      XMLElement* xobject = gobject->FirstChildElement("object");
+      for(XMLElement* object = xobject; object != NULL; object = object->NextSiblingElement("object")) {
+        x = object->FloatAttribute("x");
+        y = object->FloatAttribute("y");
+        const char* name = object->Attribute("name");
+        std::stringstream ss_name;
+        ss_name << name;
+        if(ss_name.str() == "bat") {
+          _enemies.emplace_back(new Bat(graphics, Vec2(
+            std::floor(x) * globals::SPRITE_SCALE,
+            std::floor(y) * globals::SPRITE_SCALE
+          )));
+        }
+      }
+    }
+
   }
 }
 
@@ -268,6 +303,18 @@ void Level::draw(Graphics& graphics) {
   }
   for(unsigned long int i = 0; i < _animatedTileList.size(); ++i) {
     _animatedTileList.at(i).draw(graphics);
+  }
+  for(unsigned long int i = 0; i < _enemies.size(); ++i) {
+    _enemies.at(i)->draw(graphics);
+  }
+}
+
+void Level::update(float elapsedTime, Player& player) {
+  for(unsigned long int i = 0; i < _animatedTileList.size(); ++i) {
+    _animatedTileList.at(i).update(elapsedTime);
+  }
+  for(unsigned long int i = 0; i < _enemies.size(); ++i) {
+    _enemies.at(i)->update(elapsedTime, player);
   }
 }
 
@@ -293,11 +340,15 @@ std::vector<Door> Level::checkDoorCollision(const Rectangle& other) {
   return others;
 }
 
+std::vector<Perk> Level::checkPerkCollision(const Rectangle& other) {
 
-void Level::update(float elapsedTime) {
-  for(unsigned long int i = 0; i < _animatedTileList.size(); ++i) {
-    _animatedTileList.at(i).update(elapsedTime);
+  std::vector<Perk> others;
+  for(unsigned long int i = 0; i < _perkList.size(); ++i) {
+    if(_perkList.at(i).collidesWith(other)) {
+      others.emplace_back(_perkList.at(i));
+    }
   }
+  return others;
 }
 
 

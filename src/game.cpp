@@ -96,7 +96,7 @@ void Game::draw(Graphics &graphics) {
 
 void Game::update(float elapsedTime) {
   _player.update(elapsedTime);
-  _level.update(elapsedTime);
+  _level.update(elapsedTime,_player);
   _hud.update(elapsedTime);
   //check for collisions and then act accordingly
   std::vector<Rectangle> others;
@@ -106,5 +106,11 @@ void Game::update(float elapsedTime) {
   std::vector<Door> otherD;
   if((otherD = _level.checkDoorCollision(_player.getBoundingBox())).size() > 0) {
     _player.handleDoorCollision(otherD, _level, _graphics);
+  }
+
+  std::vector<Perk> otherPerks;
+  if((otherPerks = _level.checkPerkCollision(_player.getBoundingBox())).size() > 0) {
+    _player.handlePerkCollision(otherPerks, _level, _graphics,elapsedTime);
+
   }
  }

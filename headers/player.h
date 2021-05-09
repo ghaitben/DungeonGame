@@ -1,10 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "globals.h"
+
 #include "animatedSprite.h"
 #include "level.h"
-
-class Graphics;
+#include "graphics.h"
 
 class Player : public AnimatedSprite {
 public:
@@ -28,14 +27,13 @@ public:
 
   const float getX() const;
   const float getY() const;
-
   void handleTileCollisions(std::vector<Rectangle>& others);
   void handleDoorCollision(std::vector<Door>& others, Level& level, Graphics& graphics);
-
+  void handlePerkCollision(std::vector<Perk>& others, Level& level, Graphics& graphics, float elapsedTime);
   const inline int getMaxHealth() const { return _maxHealth; }
   const inline int getCurrentHealth() const { return _currentHealth; }
 
-protected:
+private:
   float _dx, _dy;
   Direction _facing;
   bool _grounded;

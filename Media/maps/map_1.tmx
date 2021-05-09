@@ -697,7 +697,7 @@
   <object id="37" x="143.761" y="191.223" width="32.0152" height="19.8055"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="4" name="spawn points">
-  <object id="17" name="player" x="159.643" y="178.121" width="2.57298" height="2.77091">
+  <object id="17" name="player" x="159.643" y="178.121" width="2.57298" height="2.77091" duration="150">
    <ellipse/>
   </object>
  </objectgroup>
@@ -714,6 +714,6 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="perks">
-  <object id="38" name="life" x="211" y="114.667" width="10" height="11"/>
+  <object id="38" name="life" x="211" y="114.667" width="10" height="11" duration="150"/>
  </objectgroup>
 </map>

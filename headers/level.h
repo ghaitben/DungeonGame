@@ -4,10 +4,14 @@
 #include "tile.h"
 #include "rectangle.h"
 #include "animatedtile.h"
+#include "perk.h"
 #include "door.h"
 #include<string>
 #include<vector>
+#include<algorithm>
 
+class Player;
+class Enemy;
 class Graphics;
 struct SDL_Texture;
 struct Tileset;
@@ -18,13 +22,16 @@ public:
   Level();
   ~Level();
 
-  void update(float elapsedTime);
+  void update(float elapsedTime, Player& player);
   void draw(Graphics& graphics);
   std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
   std::vector<Door> checkDoorCollision(const Rectangle& other);
+  std::vector<Perk> checkPerkCollision(const Rectangle& other);
   const Vec2 getPlayerSpawnPoint() const;
 
-protected:
+
+
+
   std::string _mapName;
   Vec2 _spawnPoint;
   Vec2 _size;
@@ -32,9 +39,11 @@ protected:
   std::vector<Tile> _tileList;
   std::vector<Tileset> _tilesets;
   std::vector<Rectangle> _collisionRects;
+  std::vector<Perk> _perkList;
   std::vector<AnimatedTile> _animatedTileList;
   std::vector<AnimatedTileInfo> _animatedTileInfos;
   std::vector<Door> _doorList;
+  std::vector<Enemy*> _enemies;
   SDL_Texture* _backgroundTexture;
 
 
@@ -56,6 +65,8 @@ struct Tileset {
     FirstGid = firstGid;
   }
 };
+
+
 
 
 #endif
