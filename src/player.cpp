@@ -214,7 +214,7 @@ void Player::handleEnemyCollision(std::vector<Enemy*>& others, Level& level, Gra
   }
   //if player's health == 0 go back to the first map
   if(_currentHealth == 0) {
-    level = Level("map_3", graphics);
+    level = Level("map_1", graphics);
     _x = level.getPlayerSpawnPoint().x;
     _y = level.getPlayerSpawnPoint().y;
     gainHealth(3);
