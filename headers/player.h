@@ -31,7 +31,7 @@ public:
   void handleTileCollisions(std::vector<Rectangle>& others);
   void handleDoorCollision(std::vector<Door>& others, Level& level, Graphics& graphics);
   void handlePerkCollision(std::vector<Perk>& others, Level& level, Graphics& graphics, float elapsedTime);
-  void handleEnemyCollision(std::vector<Enemy*>& others);
+  void handleEnemyCollision(std::vector<Enemy*>& others, Level& level, Graphics& graphics);
 
   const inline int getMaxHealth() const { return _maxHealth; }
   const inline int getCurrentHealth() const { return _currentHealth; }

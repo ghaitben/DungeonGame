@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="49">
+<map version="1.5" tiledversion="1.6.0" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="53">
  <tileset firstgid="1" name="PrtCave" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="../Media/tilesets/PrtCave.png" width="256" height="80"/>
  </tileset>
@@ -153,13 +153,13 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
+   <tile/>
    <tile gid="34"/>
    <tile gid="33"/>
    <tile gid="34"/>
    <tile gid="33"/>
    <tile gid="34"/>
-   <tile gid="33"/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -168,11 +168,11 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
+   <tile gid="81"/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="50"/>
    <tile gid="49"/>
@@ -186,8 +186,8 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile/>
+   <tile/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -377,7 +377,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="132"/>
    <tile/>
    <tile/>
    <tile/>
@@ -397,7 +397,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="132"/>
    <tile/>
    <tile/>
    <tile/>
@@ -414,10 +414,10 @@
    <tile/>
    <tile/>
    <tile gid="2"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="21"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
    <tile/>
    <tile/>
    <tile/>
@@ -436,8 +436,8 @@
    <tile gid="2"/>
    <tile/>
    <tile/>
-   <tile gid="35"/>
-   <tile gid="49"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -456,25 +456,25 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="53"/>
-   <tile gid="33"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="2"/>
-   <tile gid="2"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
    <tile gid="2"/>
+   <tile gid="2"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="21"/>
+   <tile gid="2"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="81"/>
    <tile gid="22"/>
    <tile gid="50"/>
    <tile gid="49"/>
@@ -483,7 +483,7 @@
    <tile/>
    <tile/>
    <tile gid="2"/>
-   <tile gid="203"/>
+   <tile gid="81"/>
    <tile/>
    <tile/>
    <tile/>
@@ -492,7 +492,7 @@
    <tile gid="16"/>
    <tile/>
    <tile/>
-   <tile gid="21"/>
+   <tile gid="81"/>
    <tile gid="22"/>
    <tile gid="34"/>
    <tile gid="33"/>
@@ -510,7 +510,7 @@
    <tile/>
    <tile/>
    <tile gid="32"/>
-   <tile gid="21"/>
+   <tile gid="81"/>
    <tile gid="22"/>
    <tile gid="50"/>
    <tile gid="49"/>
@@ -684,20 +684,18 @@
   <object id="21" x="257.11" y="192.915" width="31.9308" height="15.6328"/>
   <object id="22" x="240.812" y="176.617" width="14.9676" height="46.8984"/>
   <object id="23" x="224.514" y="176.95" width="78.4966" height="14.9676"/>
-  <object id="24" x="182.272" y="150.674" width="59.2051" height="9.97838"/>
   <object id="25" x="222.518" y="162.98" width="8.98054" height="14.3023"/>
-  <object id="26" x="303.01" y="63.8616" width="14.635" height="33.9265"/>
-  <object id="27" x="171.961" y="148.345" width="10.9762" height="8.31532"/>
   <object id="32" x="223.516" y="253.783" width="64.5269" height="2.32829"/>
   <object id="33" x="319.308" y="10.311" width="0.665225" height="40.2461"/>
-  <object id="36" x="276.734" y="105.106" width="42.5744" height="6.65225"/>
-  <object id="37" x="242.142" y="126.06" width="77.1661" height="4.98919"/>
-  <object id="38" x="214.203" y="136.039" width="105.438" height="9.64577"/>
   <object id="39" x="142.026" y="238.816" width="59.5377" height="14.9676"/>
   <object id="40" x="148.678" y="216.863" width="7.31748" height="20.2894"/>
   <object id="41" x="161.982" y="223.183" width="5.98703" height="14.635"/>
   <object id="42" x="176.285" y="231.831" width="9.31315" height="5.98703"/>
   <object id="43" x="176.285" y="96.1251" width="14.9676" height="15.6328"/>
+  <object id="49" x="175.876" y="146.273" width="33.9563" height="11.3188"/>
+  <object id="50" x="212.445" y="131.907" width="46.5811" height="15.2368"/>
+  <object id="51" x="243.353" y="115.8" width="31.3443" height="13.9308"/>
+  <object id="52" x="276.439" y="99.6922" width="40.9217" height="19.1548"/>
  </objectgroup>
  <objectgroup id="5" name="slopes">
   <object id="29" x="147.347" y="208.216">
@@ -705,12 +703,6 @@
   </object>
   <object id="30" x="96.4577" y="167.969">
    <polyline points="0,0 18.6263,8.98054"/>
-  </object>
-  <object id="31" x="304.008" y="63.8616">
-   <polyline points="0,0 15.9654,-13.3045"/>
-  </object>
-  <object id="34" x="303.343" y="89.8054">
-   <polyline points="0,0 -123.399,59.2051"/>
   </object>
  </objectgroup>
  <objectgroup color="#4100ff" id="6" name="enemies">

@@ -207,10 +207,18 @@ void Player::handlePerkCollision(std::vector<Perk>& others, Level& level, Graphi
   }
 }
 
-void Player::handleEnemyCollision(std::vector<Enemy*>& others) {
+void Player::handleEnemyCollision(std::vector<Enemy*>& others, Level& level, Graphics& graphics) {
 
   for(unsigned long int i = 0; i < others.size(); ++i) {
     others.at(i)->touchPlayer(this);
+  }
+  //if player's health == 0 go back to the first map
+  if(_currentHealth == 0) {
+    level = Level("map_3", graphics);
+    _x = level.getPlayerSpawnPoint().x;
+    _y = level.getPlayerSpawnPoint().y;
+    gainHealth(3);
+    _maxHealth = 3;
   }
 
 }

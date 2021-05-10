@@ -20,7 +20,7 @@ Interface::Interface(Graphics& graphics, Player& player) {
 
 
 void Interface::update(float elapsedTime, Player& player) {
-  
+
   _player = player;
   _healthNumber1.setSourceRectX(8 * _player.getCurrentHealth());
   float num = (float) _player.getCurrentHealth() / _player.getMaxHealth();
